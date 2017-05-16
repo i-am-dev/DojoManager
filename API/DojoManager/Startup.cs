@@ -36,6 +36,16 @@ namespace DojoManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             // Add framework services.
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(DBManager), new DBManager(Configuration.GetConnectionString("DefaultConnection"))));
@@ -56,6 +66,9 @@ namespace DojoManager
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // global policy - assign here or on each controller
+            app.UseCors("CorsPolicy");
+
             // The secret key every token will be signed with.
             // Keep this safe on the server!
             var secretKey = Configuration.GetSection("Settings").GetValue<string>("SecretKey");
@@ -73,11 +86,11 @@ namespace DojoManager
 
                 // Validate the JWT Issuer (iss) claim
                 ValidateIssuer = true,
-                ValidIssuer = "ExampleIssuer",
+                ValidIssuer = "dojoManager",
 
                 // Validate the JWT Audience (aud) claim
                 ValidateAudience = true,
-                ValidAudience = "ExampleAudience",
+                ValidAudience = "DojoManagerAudience",
 
                 // Validate the token expiry
                 ValidateLifetime = true,
@@ -96,8 +109,8 @@ namespace DojoManager
             app.UseSimpleTokenProvider(new TokenProviderOptions
             {
                 Path = "/api/token",
-                Audience = "ExampleAudience",
-                Issuer = "ExampleIssuer",
+                Audience = "DojoManagerAudience",
+                Issuer = "dojoManager",
                 SigningCredentials = signingCredentials,
                 IdentityResolver = GetIdentity
             });

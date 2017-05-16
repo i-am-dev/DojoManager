@@ -5,11 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using DojoManager.Models;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace DojoManager
 {
     public class Program
     {
+        
+
         public static void Main(string[] args)
         {
             /*
@@ -34,6 +41,12 @@ namespace DojoManager
                 .Build();
 
             host.Run();
+
+            
         }
+
+        
+
+
     }
 }
