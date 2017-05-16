@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TestingJWT.Models;
+using DojoManager.Models;
 
-namespace TestingJWT.Data
+namespace DojoManager.Data
 {
     public class DBManager
     {

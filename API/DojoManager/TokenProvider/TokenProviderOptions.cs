@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace TestingJWT.TokenProvider
+namespace DojoManager.TokenProvider
 {
     /// <summary>
     /// Provides options for <see cref="TokenProviderMiddleware"/>.

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using TestingJWT.Data;
-using TestingJWT.Models;
+using DojoManager.Data;
+using DojoManager.Models;
 
-namespace TestingJWT.Controllers
+namespace DojoManager.Controllers
 {
     public class HomeController : Controller
     {

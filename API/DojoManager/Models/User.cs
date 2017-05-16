@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestingJWT.Models
+namespace DojoManager.Models
 {
     public class User
     {

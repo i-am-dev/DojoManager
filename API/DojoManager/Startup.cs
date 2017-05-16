@@ -9,13 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using TestingJWT.TokenProvider;
+using DojoManager.TokenProvider;
 using System.Security.Claims;
 using System.Security.Principal;
-using TestingJWT.Data;
+using DojoManager.Data;
 using Microsoft.AspNetCore.HttpOverrides;
 
-namespace TestingJWT
+namespace DojoManager
 {
     public class Startup
     {
@@ -39,7 +39,7 @@ namespace TestingJWT
             // Add framework services.
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(DBManager), new DBManager(Configuration.GetConnectionString("DefaultConnection"))));
-            services.AddSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,8 +121,7 @@ namespace TestingJWT
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSwagger();
-            app.UseSwaggerUi();
+
 
         }
 

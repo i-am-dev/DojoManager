@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.IdentityModel.Tokens;
 
-namespace TestingJWT.TokenProvider
+namespace DojoManager.TokenProvider
 {
     public class CustomJwtDataFormat : ISecureDataFormat<AuthenticationTicket>
     {

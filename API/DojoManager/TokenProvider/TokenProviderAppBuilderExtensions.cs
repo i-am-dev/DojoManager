@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestingJWT.TokenProvider
+namespace DojoManager.TokenProvider
 {
     /// <summary>
     /// Adds a token generation endpoint to an application pipeline.
