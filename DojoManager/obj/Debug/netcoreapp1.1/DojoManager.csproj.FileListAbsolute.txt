@@ -1,0 +1,9 @@
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.deps.json
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.runtimeconfig.json
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.runtimeconfig.dev.json
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.dll
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.pdb
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.csprojResolveAssemblyReference.cache
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.AssemblyInfo.cs
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.dll
+C:\Projects\ASP.NET Core\DojoManager\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.pdb

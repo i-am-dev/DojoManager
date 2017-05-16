@@ -1,0 +1,9 @@
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\bin\Debug\netcoreapp1.1\TestingJWT.deps.json
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\bin\Debug\netcoreapp1.1\TestingJWT.runtimeconfig.json
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\bin\Debug\netcoreapp1.1\TestingJWT.runtimeconfig.dev.json
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\bin\Debug\netcoreapp1.1\TestingJWT.dll
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\bin\Debug\netcoreapp1.1\TestingJWT.pdb
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\obj\Debug\netcoreapp1.1\TestingJWT.csprojResolveAssemblyReference.cache
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\obj\Debug\netcoreapp1.1\TestingJWT.AssemblyInfo.cs
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\obj\Debug\netcoreapp1.1\TestingJWT.dll
+C:\Projects\ASP.NET Core\TestingJWT\TestingJWT\obj\Debug\netcoreapp1.1\TestingJWT.pdb
