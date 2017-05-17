@@ -10,12 +10,15 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http.Headers;
+using RestSharp;
+using RestSharp.Authenticators;
 
 namespace DojoManager.Controllers
 {
     public class HomeController : Controller
     {
         private static HttpClient Client = new HttpClient();
+        private static RestClient client = new RestClient();
 
 
         public IActionResult Index()
@@ -57,6 +60,7 @@ namespace DojoManager.Controllers
 
         private static async Task GetAToken()
         {
+            /*
             UserParamater user = new UserParamater();
             user.Username = "TEST";
             user.Password = "TEST123";
@@ -71,7 +75,48 @@ namespace DojoManager.Controllers
             request.Content = new FormUrlEncodedContent(keyValues);
             var response = await Client.SendAsync(request);
 
-            //var msg = await stringPost;
+            */
+
+            /*
+            Client.BaseAddress = new Uri("https://api.mailgun.net/v3/m.onthedojo.com");
+            var request = new HttpRequestMessage(HttpMethod.Post, "/messages");
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("api", "key-371f1e8caa1e61a5067a3267dfb9e576"));
+            keyValues.Add(new KeyValuePair<string, string>("from", "OnTheDojo.com <info@m.onthedojo.com>"));
+            keyValues.Add(new KeyValuePair<string, string>("to", "richard@electro.tk"));
+            keyValues.Add(new KeyValuePair<string, string>("subject", "Hello"));
+            keyValues.Add(new KeyValuePair<string, string>("text", "testing mailgun mail!"));
+
+            request.Content = new FormUrlEncodedContent(keyValues);
+
+            var response = await Client.SendAsync(request);
+            */
+
+
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+            client.Authenticator = new HttpBasicAuthenticator("api", "key-371f1e8caa1e61a5067a3267dfb9e576");
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain", "sandboxbc6895f9a9e3411a84d46e62a4c6dac3.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "OnTheDojo <mailgun@m.onthedojo.com>");
+            request.AddParameter("to", "richard@electro.tk");
+            request.AddParameter("subject", "Hello");
+            request.AddParameter("text", "Testing Mailgun mail!");
+            request.AddParameter("html", "<html>The email in HTML.<p>Lets click <a href='http://m.onthedojo.com'>this</a> link</p></html>");
+
+            request.Method = Method.POST;
+
+            TaskCompletionSource<IRestResponse> taskCompletion = new TaskCompletionSource<IRestResponse>();
+
+            RestRequestAsyncHandle handle = client.ExecuteAsync(
+                        request, r => taskCompletion.SetResult(r));
+
+            RestResponse response = (RestResponse)(await taskCompletion.Task);
+
+            var mailgunResponse = JsonConvert.DeserializeObject<MailgunResponse>(response.Content);
+
+            
+
         }
     }
 }
