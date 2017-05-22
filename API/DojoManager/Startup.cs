@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Security.Principal;
 using DojoManager.Data;
 using Microsoft.AspNetCore.HttpOverrides;
+using DojoManager.Models;
+using DojoManager.Classes;
 
 namespace DojoManager
 {
@@ -49,6 +51,7 @@ namespace DojoManager
             // Add framework services.
             services.AddMvc();
             services.Add(new ServiceDescriptor(typeof(DBManager), new DBManager(Configuration.GetConnectionString("DefaultConnection"))));
+            services.Configure<AppConfig>(Configuration.GetSection("AppConfig"));
 
         }
 
@@ -140,12 +143,19 @@ namespace DojoManager
 
         private Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
-            // Don't do this in production, obviously!
-            if (username == "TEST" && password == "TEST123")
+            UserEngine un = new UserEngine();
+            try
             {
-                return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
+                if (un.ValidUserAndPassword(username, password))
+                {
+                    return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
+                }
             }
-
+            catch (Exception ex)
+            {
+                // There was an error somewhere
+                return Task.FromResult<ClaimsIdentity>(null);
+            }
             // Credentials are invalid, or account doesn't exist
             return Task.FromResult<ClaimsIdentity>(null);
         }

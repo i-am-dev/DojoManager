@@ -12,6 +12,9 @@ using System.Text;
 using System.Net.Http.Headers;
 using RestSharp;
 using RestSharp.Authenticators;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using DojoManager.Classes;
 
 namespace DojoManager.Controllers
 {
@@ -19,6 +22,12 @@ namespace DojoManager.Controllers
     {
         private static HttpClient Client = new HttpClient();
         private static RestClient client = new RestClient();
+
+        private static AppConfig _appConfig;
+        public HomeController(IOptions<AppConfig> values)
+        {
+            _appConfig = values.Value;
+        }
 
 
         public IActionResult Index()
@@ -46,7 +55,8 @@ namespace DojoManager.Controllers
         {
             ViewData["Message"] = "Your contact page.";
 
-            GetAToken().Wait();
+            // GetAToken().Wait();
+            var test = GetMailGunConfig();
 
             return View();
         }
@@ -54,6 +64,25 @@ namespace DojoManager.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        private static User GetMailGunConfig()
+        {
+            User data = new User();
+            DateTime startDT = new DateTime();
+            DateTime endDT = new DateTime();
+
+            startDT = DateTime.Now;
+
+            UserEngine un = new UserEngine();
+
+            data = un.CreateUser(data);
+
+            endDT = DateTime.Now;
+
+            var timeTaken = (endDT - startDT);
+
+            return data;
         }
 
 
