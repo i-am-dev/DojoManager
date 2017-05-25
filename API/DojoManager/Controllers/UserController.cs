@@ -56,6 +56,7 @@ namespace DojoManager.Controllers
                     model = un.CreateUser(model);
                     response.Status = "SUCCESS";
                     response.Message = "User created";
+                    
 
                 }
                 else

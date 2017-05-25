@@ -57,7 +57,9 @@ namespace DojoManager.Classes
             {
                 throw ex;
             }
-
+            // clear password and salt before returning:
+            model.Salt = "";
+            model.Password = "";
             return model;
         }
 
@@ -74,7 +76,9 @@ namespace DojoManager.Classes
             {
                 throw ex;
             }
-
+            // clear password and salt before returning:
+            model.Salt = "";
+            model.Password = "";
             return result;
         }
 
