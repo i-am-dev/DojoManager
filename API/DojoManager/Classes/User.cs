@@ -63,6 +63,24 @@ namespace DojoManager.Classes
             return model;
         }
 
+        public User GetUserDetailsFromEmail(User model)
+        {
+            // get the record
+            try{
+                DBManager db = new DBManager();
+
+                model = db.GetUserDetailsFromEmail(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            // clear password and salt before returning:
+            model.Salt = "";
+            model.Password = "";
+            return model;
+        }
+
         public bool DoesUserExist(User model)
         {
             bool result = false;

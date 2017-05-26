@@ -78,6 +78,47 @@ namespace DojoManager.Controllers
             });
         }
 
-        
+        [Route("api/user/whoami")]
+        [HttpPost]
+        [Authorize]
+        public IActionResult WhoAmI(string email)
+        {
+            ResponseObject response = new ResponseObject();
+            User model = new User();
+            model.Email = email;
+            try
+            {
+                UserEngine un = new UserEngine();
+                // make sure the user exists
+                if (un.DoesUserExist(model))
+                {
+
+                    model = un.GetUserDetailsFromEmail(model);
+                    response.Status = "SUCCESS";
+                    response.Message = "User data";
+
+
+                }
+                else
+                {
+                    response.Status = "ERROR";
+                    response.Message = "User Not Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = "ERROR";
+                response.Message = string.Format("ERROR: {0}", ex.Message);
+            }
+
+            return Json(new
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = model
+            });
+        }
+
+
     }
 }

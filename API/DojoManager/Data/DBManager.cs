@@ -145,6 +145,57 @@ namespace DojoManager.Data
             return model;
         }
 
+        public User GetUserDetailsFromEmail(User model)
+        {
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@Email", model.Email);
+
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT * FROM dojo.users WHERE `Email` = @Email";
+                        cmd.Parameters.AddWithValue("@Email", model.Email);
+                        cmd.Prepare();
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                model.UserId = reader.GetInt32("UserId");
+                                model.RecordDT = reader.GetDateTime("RecordDT");
+                                model.Email = reader.GetString("Email");
+                                model.FirstName = reader.GetString("FirstName");
+                                model.LastName = reader.GetString("LastName");
+                                model.Tel1 = reader.GetString("Tel1");
+                                model.Tel2 = reader.GetString("Tel2");
+                                model.Address1 = reader.GetString("Address1");
+                                model.Address2 = reader.GetString("Address2");
+                                model.City = reader.GetString("City");
+                                model.Province = reader.GetString("Province");
+                                model.Country = reader.GetString("Country");
+                                model.Status = reader.GetInt32("Status");
+                                model.EmailConfirmed = reader.GetInt32("EmailConfirmed");
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return model;
+        }
+
         public bool DoesUserExist(User model)
         {
             bool result = false;

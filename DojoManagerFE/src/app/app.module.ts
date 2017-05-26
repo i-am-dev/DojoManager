@@ -16,6 +16,7 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
+import { UserMap } from './_models/user';
 //import { RegisterComponent } from './register/index';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LoginComponent } from './login/index';
         AuthGuard,
         AlertService,
         AuthenticationService,
-        UserService
+        UserService,
+        UserMap
 
         // providers used to create fake backend
     //    fakeBackendProvider,
