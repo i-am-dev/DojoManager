@@ -156,32 +156,32 @@ namespace DojoManager.Data
                     {
 
                         cmd.Connection = conn;
+                        cmd.CommandText = "SELECT `UserId`,`RecordDT`,`Email`,`FirstName`,`LastName`,`Tel1`,`Tel2`,`Address1`,`Address2`,`City`,`Province`,`Country`,`Status`,`EmailConfirmed` FROM dojo.users WHERE `Email` = @Email";
                         cmd.Parameters.AddWithValue("@Email", model.Email);
+                        cmd.Prepare();
 
                         cmd.ExecuteNonQuery();
 
-                        cmd.CommandText = "SELECT * FROM dojo.users WHERE `Email` = @Email";
-                        cmd.Parameters.AddWithValue("@Email", model.Email);
-                        cmd.Prepare();
+                        
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                model.UserId = reader.GetInt32("UserId");
-                                model.RecordDT = reader.GetDateTime("RecordDT");
-                                model.Email = reader.GetString("Email");
-                                model.FirstName = reader.GetString("FirstName");
-                                model.LastName = reader.GetString("LastName");
-                                model.Tel1 = reader.GetString("Tel1");
-                                model.Tel2 = reader.GetString("Tel2");
-                                model.Address1 = reader.GetString("Address1");
-                                model.Address2 = reader.GetString("Address2");
-                                model.City = reader.GetString("City");
-                                model.Province = reader.GetString("Province");
-                                model.Country = reader.GetString("Country");
-                                model.Status = reader.GetInt32("Status");
-                                model.EmailConfirmed = reader.GetInt32("EmailConfirmed");
+                                if(!reader.IsDBNull(0)) model.UserId = reader.GetInt32("UserId");
+                                if (!reader.IsDBNull(1)) model.RecordDT = reader.GetDateTime("RecordDT");
+                                if (!reader.IsDBNull(2)) model.Email = reader.GetString("Email");
+                                if (!reader.IsDBNull(3)) model.FirstName = reader.GetString("FirstName");
+                                if (!reader.IsDBNull(4)) model.LastName = reader.GetString("LastName");
+                                if (!reader.IsDBNull(5)) model.Tel1 = reader.GetString("Tel1");
+                                if (!reader.IsDBNull(6)) model.Tel2 = reader.GetString("Tel2");
+                                if (!reader.IsDBNull(7)) model.Address1 = reader.GetString("Address1");
+                                if (!reader.IsDBNull(8)) model.Address2 = reader.GetString("Address2");
+                                if (!reader.IsDBNull(9)) model.City = reader.GetString("City");
+                                if (!reader.IsDBNull(10)) model.Province = reader.GetString("Province");
+                                if (!reader.IsDBNull(11)) model.Country = reader.GetString("Country");
+                                if (!reader.IsDBNull(12)) model.Status = reader.GetInt32("Status");
+                                if (!reader.IsDBNull(13)) model.EmailConfirmed = reader.GetInt32("EmailConfirmed");
                             }
                         }
                     }
