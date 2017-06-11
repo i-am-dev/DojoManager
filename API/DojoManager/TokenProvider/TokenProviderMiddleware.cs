@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using DojoManager.Classes;
+using DojoManager.Models;
+using System.Collections.Generic;
 
 namespace DojoManager.TokenProvider
 {
@@ -64,14 +67,34 @@ namespace DojoManager.TokenProvider
         {
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
+            var refreshingtoken = context.Request.Form["refreshToken"];
 
-            var identity = await _options.IdentityResolver(username, password);
-            if (identity == null)
+            UserEngine un = new UserEngine();
+
+            // check if a token is provided
+            if (refreshingtoken.ToString().Length > 20)
             {
-                context.Response.StatusCode = 400;
-                await context.Response.WriteAsync("Invalid username or password.");
-                return;
+                // token is provided
+                // check if refresh token is valid
+                if (!un.IsValidRefreshToken(refreshingtoken))
+                {
+                    context.Response.StatusCode = 400;
+                    await context.Response.WriteAsync("Invalid token.");
+                    return;
+                }
+
+            } else
+            {
+                // no refresh token so use credentials
+                var identity = await _options.IdentityResolver(username, password);
+                if (identity == null)
+                {
+                    context.Response.StatusCode = 400;
+                    await context.Response.WriteAsync("Invalid username or password.");
+                    return;
+                }
             }
+            
 
             var now = DateTime.UtcNow;
 
@@ -94,10 +117,19 @@ namespace DojoManager.TokenProvider
                 signingCredentials: _options.SigningCredentials);
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            // Create a new refresh token
+            var refreshToken = un.CreateRefreshToken(username);
+
+            // Get a list of allowed permissions
+            List<PermissionFunction> permissions = new List<PermissionFunction>();
+            permissions = un.GetListOfAllowedPermissions(un.GetUserIdFromEmail(username));
+
             var response = new
             {
                 access_token = encodedJwt,
-                expires_in = (int)_options.Expiration.TotalSeconds
+                expires_in = (int)_options.Expiration.TotalSeconds,
+                refreshToken = refreshToken,
+                permissions = permissions
             };
 
             // Serialize and return the response

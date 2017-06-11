@@ -25,4 +25,32 @@ namespace DojoManager.Models
         public string PostalCode { get; set; }
         public int Status { get; set; }
     }
+
+    public class PermissionFunction
+    {
+        public int FunctionId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int IsActive { get; set; }
+    }
+
+    public class PermissionRole
+    {
+        public int RoleId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int IsActive { get; set; }
+    }
+
+    public class RoleFunctions
+    {
+        public int RoleId { get; set; }
+        public List<PermissionFunction> AllowedFunctions { get; set; }
+    }
+
+    public class UserRoles
+    {
+        public int UserId { get; set; }
+        public List<RoleFunctions> AllowedRoles { get; set; }
+    }
 }

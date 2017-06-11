@@ -37,6 +37,27 @@ namespace DojoManager.Classes
             return hashed;
         }
 
+        public string CreateRefreshToken(string email)
+        {
+            var refreshToken = Guid.NewGuid().ToString();
+
+            // save the record
+            try
+            {
+                DBManager db = new DBManager();
+
+                var result = db.SaveRefreshToken(email, refreshToken, (DateTime.UtcNow.AddHours(1)));
+
+                if (result != "SUCCESS") refreshToken = "REFRESH TOKEN FAILED TO CREATE";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return refreshToken;
+        }
+
         public User CreateUser(User model)
         {
 
@@ -81,22 +102,72 @@ namespace DojoManager.Classes
             return model;
         }
 
-        public bool DoesUserExist(User model)
+        public List<PermissionFunction> GetListOfAllowedPermissions(int userId)
+        {
+            List<PermissionFunction> functions = new List<PermissionFunction>();
+            // get the record
+            try
+            {
+                DBManager db = new DBManager();
+
+                functions = db.GetUserAllowedRoles(userId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return functions;
+        }
+
+        public bool DoesUserExist(string email)
         {
             bool result = false;
             try
             {
                 DBManager db = new DBManager();
 
-                result = db.DoesUserExist(model);
+                result = db.DoesUserExist(email);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            // clear password and salt before returning:
-            model.Salt = "";
-            model.Password = "";
+
+            return result;
+        }
+
+        public bool IsValidRefreshToken(string token)
+        {
+            bool result = false;
+            try
+            {
+                DBManager db = new DBManager();
+
+                result = db.IsValidRefreshToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public int GetUserIdFromEmail(string email)
+        {
+            int result = 0;
+            try
+            {
+                DBManager db = new DBManager();
+
+                result = db.GetUserIdFromEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             return result;
         }
 

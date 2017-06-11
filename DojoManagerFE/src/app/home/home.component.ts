@@ -17,25 +17,6 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // get users from secure api end point
-       /* this.userService.getUsers()
-            .subscribe(users => {
-                this.users = users;
-            });*/
-            if(this.authService.checkIfJWTExpired(this.authService.user)){
-                console.log('Token Still Valid');
-                console.log(this.authService.user);
-            }else{
-                console.log('Token expired');
-                this.authService.refreshJWT()
-                    .subscribe(
-                        data => {
-                        },
-                        error => {
-                            //this.authService.logout();
-                            this.router.navigate(['login']);
-                        });
-            }
     }
 
 }

@@ -118,6 +118,7 @@ namespace DojoManager
                 IdentityResolver = GetIdentity
             });
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
