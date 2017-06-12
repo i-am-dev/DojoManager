@@ -132,6 +132,9 @@ namespace DojoManager.TokenProvider
                 permissions = permissions
             };
 
+            // save JWT so that we can use it for permissions at a later stage
+            var jwtSaveResult = un.SaveUserJWT(username, encodedJwt);
+
             // Serialize and return the response
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, _serializerSettings));

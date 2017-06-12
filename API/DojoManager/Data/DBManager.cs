@@ -250,7 +250,7 @@ namespace DojoManager.Data
         public List<PermissionFunction> GetUserAllowedRoles(int userId)
         {
             List<PermissionFunction> permissions = new List<PermissionFunction>();
-            PermissionFunction permission = new PermissionFunction();
+            
             try
             {
                 using (MySqlConnection conn = GetConnection())
@@ -275,6 +275,56 @@ namespace DojoManager.Data
                         {
                             while (reader.Read())
                             {
+                                PermissionFunction permission = new PermissionFunction();
+                                if (!reader.IsDBNull(0)) permission.FunctionId = reader.GetInt32("FunctionId");
+                                if (!reader.IsDBNull(1)) permission.Name = reader.GetString("Name");
+                                if (!reader.IsDBNull(2)) permission.Description = reader.GetString("Description");
+                                if (!reader.IsDBNull(3)) permission.IsActive = reader.GetInt32("IsActive");
+                                permissions.Add(permission);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return permissions;
+        }
+
+        public List<PermissionFunction> GetListOfAllowedPermissionsForJWT(string jwt)
+        {
+            List<PermissionFunction> permissions = new List<PermissionFunction>();
+            
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "select f.FunctionId, f.`Name`, F.Description, F.IsActive from dojo.functions as f " +
+                                            "inner join dojo.rolefunctions as rf on rf.FunctionId = f.FunctionId " +
+                                            "inner join dojo.userroles as ur on ur.RoleId = rf.RoleId " +
+                                            "inner join dojo.users as u on u.UserId = ur.UserId " +
+                                            "where u.JWT = @JWT";
+                        cmd.Parameters.AddWithValue("@JWT", jwt);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+
+
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PermissionFunction permission = new PermissionFunction();
                                 if (!reader.IsDBNull(0)) permission.FunctionId = reader.GetInt32("FunctionId");
                                 if (!reader.IsDBNull(1)) permission.Name = reader.GetString("Name");
                                 if (!reader.IsDBNull(2)) permission.Description = reader.GetString("Description");
@@ -404,6 +454,37 @@ namespace DojoManager.Data
             }
 
             return userId;
+        }
+
+        public Boolean SaveUserJWT(string email, string jwt)
+        {
+            int userId = 0;
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "update dojo.users set `JWT` = @JWT " +
+                                            "where `Email` = @EMAIL";
+                        cmd.Parameters.AddWithValue("@EMAIL", email);
+                        cmd.Parameters.AddWithValue("@JWT", jwt);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return true;
         }
 
         public string ReturnSaltForUserEmail(string email)

@@ -120,6 +120,24 @@ namespace DojoManager.Classes
             return functions;
         }
 
+        public List<PermissionFunction> GetListOfAllowedPermissionsForJWT(string jwt)
+        {
+            List<PermissionFunction> functions = new List<PermissionFunction>();
+            // get the record
+            try
+            {
+                DBManager db = new DBManager();
+
+                functions = db.GetListOfAllowedPermissionsForJWT(jwt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return functions;
+        }
+
         public bool DoesUserExist(string email)
         {
             bool result = false;
@@ -189,6 +207,27 @@ namespace DojoManager.Classes
 
             return result;
         }
+
+        public bool SaveUserJWT(string email, string jwt)
+        {
+            bool result = false;
+            try
+            {
+                DBManager db = new DBManager();
+
+
+
+                result = db.SaveUserJWT(email, jwt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+
 
         private string ReturnSaltForUserEmail(string email)
         {

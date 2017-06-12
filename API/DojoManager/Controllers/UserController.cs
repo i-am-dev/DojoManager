@@ -18,6 +18,7 @@ using DojoManager.Classes;
 using Microsoft.AspNetCore.Http;
 using DojoManager.TokenProvider;
 using System.Net;
+using DojoManager.AuthFilter;
 
 namespace DojoManager.Controllers
 {
@@ -81,9 +82,12 @@ namespace DojoManager.Controllers
             });
         }
 
+
         [Route("api/user/whoami")]
         [HttpPost]
         [Authorize]
+        //[ServiceFilter(typeof(HasPermission))]
+        [HasPermission("CreateNewUser")]
         public IActionResult WhoAmI(string email)
         {
             ResponseObject response = new ResponseObject();
