@@ -16,6 +16,7 @@ using DojoManager.Data;
 using Microsoft.AspNetCore.HttpOverrides;
 using DojoManager.Models;
 using DojoManager.Classes;
+using DojoManager.AuthFilter;
 
 namespace DojoManager
 {
@@ -117,6 +118,7 @@ namespace DojoManager
                 SigningCredentials = signingCredentials,
                 IdentityResolver = GetIdentity
             });
+
 
             if (env.IsDevelopment())
             {

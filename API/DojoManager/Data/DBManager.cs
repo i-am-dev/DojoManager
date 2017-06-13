@@ -87,6 +87,56 @@ namespace DojoManager.Data
         }
 
         #region User methods
+
+        public string SaveRefreshToken(string email, string refreshToken, DateTime expireDT)
+        {
+            string status = "";
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        // remove all tokens for the user
+                        User user = new User();
+                        user.Email = email;
+                        user = GetUserDetailsFromEmail(user);
+
+
+                        // save the new token for the user
+                        cmd.Connection = conn;
+
+                        cmd.CommandText = "DELETE from dojo.UserRefreshTokens where `userId` = @USERID";
+                        cmd.Prepare();
+
+                        cmd.Parameters.AddWithValue("@USERID", user.UserId);
+
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "INSERT into dojo.UserRefreshTokens(`Token`,`UserId`,`ExpireDT`,`CreatedDT`) VALUES(@TOKEN,@USERID,@EXPIREDT,@CREATEDDT)";
+                        cmd.Prepare();
+                        cmd.Parameters.AddWithValue("@TOKEN", refreshToken);
+                        cmd.Parameters.AddWithValue("@EXPIREDT", expireDT);
+                        cmd.Parameters.AddWithValue("@CREATEDDT", DateTime.UtcNow);
+
+                        cmd.ExecuteNonQuery();
+
+                        status = "SUCCESS";
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                status = "ERROR: " + ex.Message;
+            }
+
+            return status;
+        }
+
+
         public User UserSaveNewUser(User model)
         {
             try
@@ -145,7 +195,156 @@ namespace DojoManager.Data
             return model;
         }
 
-        public bool DoesUserExist(User model)
+        public User GetUserDetailsFromEmail(User model)
+        {
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT `UserId`,`RecordDT`,`Email`,`FirstName`,`LastName`,`Tel1`,`Tel2`,`Address1`,`Address2`,`City`,`Province`,`Country`,`Status`,`EmailConfirmed` FROM dojo.users WHERE `Email` = @Email";
+                        cmd.Parameters.AddWithValue("@Email", model.Email);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+
+                        
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if(!reader.IsDBNull(0)) model.UserId = reader.GetInt32("UserId");
+                                if (!reader.IsDBNull(1)) model.RecordDT = reader.GetDateTime("RecordDT");
+                                if (!reader.IsDBNull(2)) model.Email = reader.GetString("Email");
+                                if (!reader.IsDBNull(3)) model.FirstName = reader.GetString("FirstName");
+                                if (!reader.IsDBNull(4)) model.LastName = reader.GetString("LastName");
+                                if (!reader.IsDBNull(5)) model.Tel1 = reader.GetString("Tel1");
+                                if (!reader.IsDBNull(6)) model.Tel2 = reader.GetString("Tel2");
+                                if (!reader.IsDBNull(7)) model.Address1 = reader.GetString("Address1");
+                                if (!reader.IsDBNull(8)) model.Address2 = reader.GetString("Address2");
+                                if (!reader.IsDBNull(9)) model.City = reader.GetString("City");
+                                if (!reader.IsDBNull(10)) model.Province = reader.GetString("Province");
+                                if (!reader.IsDBNull(11)) model.Country = reader.GetString("Country");
+                                if (!reader.IsDBNull(12)) model.Status = reader.GetInt32("Status");
+                                if (!reader.IsDBNull(13)) model.EmailConfirmed = reader.GetInt32("EmailConfirmed");
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return model;
+        }
+
+
+        public List<PermissionFunction> GetUserAllowedRoles(int userId)
+        {
+            List<PermissionFunction> permissions = new List<PermissionFunction>();
+            
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "select f.FunctionId, f.`Name`, F.Description, F.IsActive from dojo.functions as f " +
+                                            "inner join dojo.rolefunctions as rf on rf.FunctionId = f.FunctionId " +
+                                            "inner join dojo.userroles as ur on ur.RoleId = rf.RoleId " +
+                                            "where ur.UserId = @USERID";
+                        cmd.Parameters.AddWithValue("@USERID", userId);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+
+
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PermissionFunction permission = new PermissionFunction();
+                                if (!reader.IsDBNull(0)) permission.FunctionId = reader.GetInt32("FunctionId");
+                                if (!reader.IsDBNull(1)) permission.Name = reader.GetString("Name");
+                                if (!reader.IsDBNull(2)) permission.Description = reader.GetString("Description");
+                                if (!reader.IsDBNull(3)) permission.IsActive = reader.GetInt32("IsActive");
+                                permissions.Add(permission);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return permissions;
+        }
+
+        public List<PermissionFunction> GetListOfAllowedPermissionsForJWT(string jwt)
+        {
+            List<PermissionFunction> permissions = new List<PermissionFunction>();
+            
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "select f.FunctionId, f.`Name`, F.Description, F.IsActive from dojo.functions as f " +
+                                            "inner join dojo.rolefunctions as rf on rf.FunctionId = f.FunctionId " +
+                                            "inner join dojo.userroles as ur on ur.RoleId = rf.RoleId " +
+                                            "inner join dojo.users as u on u.UserId = ur.UserId " +
+                                            "where u.JWT = @JWT";
+                        cmd.Parameters.AddWithValue("@JWT", jwt);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+
+
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PermissionFunction permission = new PermissionFunction();
+                                if (!reader.IsDBNull(0)) permission.FunctionId = reader.GetInt32("FunctionId");
+                                if (!reader.IsDBNull(1)) permission.Name = reader.GetString("Name");
+                                if (!reader.IsDBNull(2)) permission.Description = reader.GetString("Description");
+                                if (!reader.IsDBNull(3)) permission.IsActive = reader.GetInt32("IsActive");
+                                permissions.Add(permission);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return permissions;
+        }
+
+        public bool DoesUserExist(string email)
         {
             bool result = false;
             try
@@ -161,7 +360,7 @@ namespace DojoManager.Data
                         cmd.CommandText = "SELECT * FROM dojo.users WHERE `Email` = @Email";
                         cmd.Prepare();
 
-                        cmd.Parameters.AddWithValue("@Email", model.Email);
+                        cmd.Parameters.AddWithValue("@Email", email);
 
                         if (GetRowsCount(cmd) > 0)
                         {
@@ -178,6 +377,114 @@ namespace DojoManager.Data
             }
 
             return result;
+        }
+
+
+        public bool IsValidRefreshToken(string token)
+        {
+            bool result = false;
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+
+                        cmd.CommandText = "SELECT * FROM dojo.userrefreshtokens WHERE `Token` = @TOKEN and `ExpireDT` >= UTC_TIMESTAMP()";
+                        cmd.Prepare();
+
+                        cmd.Parameters.AddWithValue("@TOKEN", token);
+
+                        if (GetRowsCount(cmd) > 0)
+                        {
+                            result = true;
+                        }
+
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+
+        public int GetUserIdFromEmail(string email)
+        {
+            int userId = 0;
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "select `UserId` from dojo.users " +
+                                            "where `Email` = @EMAIL";
+                        cmd.Parameters.AddWithValue("@EMAIL", email);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+
+
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (!reader.IsDBNull(0)) userId = reader.GetInt32("UserId");
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return userId;
+        }
+
+        public Boolean SaveUserJWT(string email, string jwt)
+        {
+            int userId = 0;
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "update dojo.users set `JWT` = @JWT " +
+                                            "where `Email` = @EMAIL";
+                        cmd.Parameters.AddWithValue("@EMAIL", email);
+                        cmd.Parameters.AddWithValue("@JWT", jwt);
+                        cmd.Prepare();
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return true;
         }
 
         public string ReturnSaltForUserEmail(string email)

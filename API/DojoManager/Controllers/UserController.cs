@@ -15,6 +15,10 @@ using RestSharp.Authenticators;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using DojoManager.Classes;
+using Microsoft.AspNetCore.Http;
+using DojoManager.TokenProvider;
+using System.Net;
+using DojoManager.AuthFilter;
 
 namespace DojoManager.Controllers
 {
@@ -46,7 +50,7 @@ namespace DojoManager.Controllers
             {
                 UserEngine un = new UserEngine();
                 // make sure the user does not exist already
-                if (!un.DoesUserExist(model))
+                if (!un.DoesUserExist(model.Email))
                 {
 
                     // create the user
@@ -56,6 +60,7 @@ namespace DojoManager.Controllers
                     model = un.CreateUser(model);
                     response.Status = "SUCCESS";
                     response.Message = "User created";
+                    
 
                 }
                 else
@@ -77,6 +82,82 @@ namespace DojoManager.Controllers
             });
         }
 
-        
+
+        [Route("api/user/whoami")]
+        [HttpPost]
+        [Authorize]
+        //[ServiceFilter(typeof(HasPermission))]
+        [HasPermission("CreateNewUser")]
+        public IActionResult WhoAmI(string email)
+        {
+            ResponseObject response = new ResponseObject();
+            User model = new User();
+            model.Email = email;
+            try
+            {
+                UserEngine un = new UserEngine();
+                // make sure the user exists
+                if (un.DoesUserExist(model.Email))
+                {
+
+                    model = un.GetUserDetailsFromEmail(model);
+                    response.Status = "SUCCESS";
+                    response.Message = "User data";
+                    model.Password = "";
+                    model.Salt = "";
+
+
+                }
+                else
+                {
+                    response.Status = "ERROR";
+                    response.Message = "User Not Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = "ERROR";
+                response.Message = string.Format("ERROR: {0}", ex.Message);
+            }
+
+            return Json(new
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = model
+            });
+        }
+
+        [Route("api/user/GetListOfAllowedPermissions")]
+        [HttpPost]
+        [Authorize]
+        public IActionResult GetListOfAllowedPermissions(int userId)
+        {
+            ResponseObject response = new ResponseObject();
+            List<PermissionFunction> permissions = new List<PermissionFunction>();
+            try
+            {
+                UserEngine un = new UserEngine();
+                // get list of user permissions
+
+                permissions = un.GetListOfAllowedPermissions(userId);
+                response.Status = "SUCCESS";
+                response.Message = "";
+            }
+            catch (Exception ex)
+            {
+                response.Status = "ERROR";
+                response.Message = string.Format("ERROR: {0}", ex.Message);
+            }
+
+            return Json(new
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = permissions
+            });
+        }
+
+
     }
 }
