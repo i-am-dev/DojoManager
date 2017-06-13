@@ -33,12 +33,17 @@ namespace DojoManager
                 .UseStartup<Startup>()
                 .Build();
             */
+
             var builder = new ConfigurationBuilder()
              .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json");
 
             Configuration = builder.Build();
-
+            /*
+            var hostUrl = Configuration["hosturl"];
+            if (string.IsNullOrEmpty(hostUrl))
+                hostUrl = "http://0.0.0.0:6000";
+                */
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())

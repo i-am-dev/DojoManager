@@ -75,6 +75,27 @@ namespace DojoManager.AuthFilter
                 List<PermissionFunction> permissions = new List<PermissionFunction>();
                 UserEngine un = new UserEngine();
                 permissions = un.GetListOfAllowedPermissionsForJWT(jwtBearer);
+                Boolean isAllowed = false;
+
+                for(var i = 0; i < permissions.Count; i++)
+                {
+                    if (permissions[i].Name == permission)
+                    {
+                        isAllowed = true;
+                        i = permissions.Count;
+                    }
+                }
+
+                if (!isAllowed)
+                {
+                    context.HttpContext.Response.StatusCode = 403;
+                    context.Result = new ContentResult()
+                    {
+                        Content = "Request not allowed"
+                    };
+                    return;
+                }
+                
             }
 
             public void OnActionExecuted(ActionExecutedContext context)
