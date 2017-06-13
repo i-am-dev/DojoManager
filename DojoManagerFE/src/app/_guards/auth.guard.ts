@@ -32,6 +32,7 @@ export class AuthGuard implements CanActivate {
 
 
             return true;
+            
         }
 
         // not logged in so redirect to login page
