@@ -1,9 +1,0 @@
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.deps.json
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.runtimeconfig.json
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.runtimeconfig.dev.json
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.dll
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\bin\Debug\netcoreapp1.1\DojoManager.pdb
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.csprojResolveAssemblyReference.cache
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.AssemblyInfo.cs
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.dll
-C:\Users\richard.soderblom\Documents\DojoManager\API\DojoManager\obj\Debug\netcoreapp1.1\DojoManager.pdb
