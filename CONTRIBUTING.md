@@ -95,3 +95,4 @@ The original contributor will be notified of the revert in the [ZenHub](https://
 * [ZenHub project board](https://github.com/Buzzcube/DojoManager#boards?repos=91454773)
 * [Code of Conduct](https://github.com/Buzzcube/DojoManager/blob/master/CODEOFCONDUCT.md)
 * [Code Review Process](https://github.com/Buzzcube/DojoManager/blob/master/CODEREVIEW.md)
+* [High level view Mind Map](https://coggle.it/diagram/WcO4AEU4KwABxMp-/b8de91dd7d1c2abce9afdd02d39e64fc5c4dea47fa08450153d7e863fa4c31d0)
