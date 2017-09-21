@@ -1,0 +1,41 @@
+{
+  "name": "emailDB",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sentTo": {
+      "type": "string",
+      "required": true
+    },
+    "sentFrom": {
+      "type": "string",
+      "required": true
+    },
+    "emailSubject": {
+      "type": "string"
+    },
+    "emailBody": {
+      "type": "string",
+      "mysql": {
+        "dataType": "text"
+      }
+    },
+    "sentDt": {
+      "type": "date"
+    },
+    "mailgunMessageId": {
+      "type": "string"
+    },
+    "wasSent": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
