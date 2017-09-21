@@ -94,4 +94,4 @@ The original contributor will be notified of the revert in the [ZenHub](https://
 * [DojoManager mailing list](https://groups.google.com/forum/#!forum/dojomanager)
 * [ZenHub project board](https://github.com/Buzzcube/DojoManager#boards?repos=91454773)
 * [Code of Conduct](https://github.com/Buzzcube/DojoManager/blob/master/CODEOFCONDUCT.md)
-
+* [Code Review Process](https://github.com/Buzzcube/DojoManager/blob/master/CODEREVIEW.md)
