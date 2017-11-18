@@ -1,0 +1,35 @@
+#.travis.yml
+
+sudo: required
+
+dist: trusty
+
+#addons:
+ # apt:
+  #  sources:
+   #   - google-chrome
+   # packages:
+    #  - google-chrome-stable
+
+language: node_js
+
+node_js:
+  - 8.9.1
+
+branches:
+  only:
+  - gh-pages
+  - master
+  - develop
+  - /.*/
+
+before_script:
+  - cd api
+  - npm install
+  - cd ../web-frontend
+  - npm install
+  - cd ../mobile-app
+  - npm install
+#  - npm install -g angular-cli-ghpages
+#  - export DISPLAY=:99.0
+#- sh -e /etc/init.d/xvfb start
