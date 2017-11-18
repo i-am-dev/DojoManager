@@ -19,6 +19,8 @@ node_js:
 branches:
   only:
   - gh-pages
+  - master
+  - develop
   - /.*/
 
 before_script:
