@@ -8,7 +8,7 @@ Please note we have a [Code of Conduct](https://github.com/Buzzcube/DojoManager/
 
 The application consists of three components:
 1. The API which is based on Loopback
-2. The Web Frontend which is an Angular 4 project
+2. The Web Frontend which is an Angular 5 project with Boostrap 4
 3. The Mobile (Android and iOS) which makes use of Ionic
 
 ## Getting Started

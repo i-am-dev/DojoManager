@@ -28,7 +28,7 @@ Having Your Code Reviewed
 * Explain why the code exists. ("It's like that because of these reasons. Would it be more clear if I rename this class/file/method/variable?")
 * Extract some changes and refactorings into future tickets/stories.
 * Link to the code review from the ticket/story. ("Ready for review: https://github.com/organization/project/pull/1")
-* Push commits based on earlier rounds of feedback as isolated commits to the branch. Do not squash until the branch is ready to merge. Reviewers should be able to read individual updates based on their earlier feedback.
+* Push commits based on earlier rounds of feedback as isolated commits to the branch. Do not squash until the branch is ready to merge the develop branch. Reviewers should be able to read individual updates based on their earlier feedback.
 * Seek to understand the reviewer's perspective.
 * Try to respond to every comment.
 * Wait to merge the branch until Continuous Integration (TDDium, TravisCI, etc.) tells you the test suite is green in the branch.
