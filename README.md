@@ -1,5 +1,6 @@
-[![Master Build Status](https://travis-ci.org/i-am-dev/DojoManager.svg?branch=master)](https://travis-ci.org/i-am-dev/DojoManager)
-[![Develop Build Status](https://travis-ci.org/i-am-dev/DojoManager.svg?branch=develop)](https://travis-ci.org/i-am-dev/DojoManager)
+Master: [![Build Status](https://travis-ci.org/i-am-dev/DojoManager.svg?branch=master)](https://travis-ci.org/i-am-dev/DojoManager)
+
+Develop: [![Build Status](https://travis-ci.org/i-am-dev/DojoManager.svg?branch=develop)](https://travis-ci.org/i-am-dev/DojoManager)
 
 ## Contributing
 We always welcome contributors to our little project here.
