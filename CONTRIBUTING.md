@@ -6,10 +6,7 @@ Please note we have a [Code of Conduct](https://github.com/Buzzcube/DojoManager/
 
 ## Components
 
-The application consists of three components:
-1. The API which is based on Loopback
-2. The Web Frontend which is an Angular 5 project with Boostrap 4
-3. The Mobile (Android and iOS) which makes use of Ionic
+The application is written in Python 3.6 with Django as the framework with some Bootstrap 4. There are plans to add on an API and a mobile app, but that will be a seperate project.
 
 ## Getting Started
 
@@ -70,6 +67,32 @@ appropriate to start the first line of a commit with '(doc)' instead of a ticket
     the new documentation or comments added.
 ````
 
+## Applying the GPL license to the source
+
+Attach the following notices to the program. It is safest to attach them
+to the start of each source file to most effectively state the exclusion of warranty;
+and each file should have at least the &ldquo;copyright&rdquo; line and a pointer to
+where the full notice is found.
+
+````
+    DojoManager
+    -----------
+    A complete management tool for Dojos.
+    Copyright (C) 2017 <name of author>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+````
 ## Submitting Changes
 
 * Push your changes to a topic branch in your fork of the repository.
