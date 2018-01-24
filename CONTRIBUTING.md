@@ -58,7 +58,7 @@ appropriate to start the first line of a commit with '(doc)' instead of a ticket
     (doc) Add documentation commit example to CONTRIBUTING
 
     There is no example for contributing a documentation commit
-    to the Puppet repository. This is a problem because the contributor
+    to the repository. This is a problem because the contributor
     is left to assume how a commit of this nature may appear.
 
     The first line is a real life imperative statement with '(doc)' in
@@ -69,7 +69,7 @@ appropriate to start the first line of a commit with '(doc)' instead of a ticket
 
 ## Applying the GPL license to the source
 
-Attach the following notices to the program. It is safest to attach them
+Attach the following notices to the code. It is safest to attach them
 to the start of each source file to most effectively state the exclusion of warranty;
 and each file should have at least the &ldquo;copyright&rdquo; line and a pointer to
 where the full notice is found.
@@ -78,7 +78,7 @@ where the full notice is found.
     DojoManager
     -----------
     A complete management tool for Dojos.
-    Copyright (C) 2017 <name of author>
+    Copyright (C) 2017 Richard Soderblom
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

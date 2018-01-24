@@ -1,0 +1,68 @@
+{% extends "layout/layoutblank.html" %}
+{% load bootstrap_tags %}
+
+{% block content %}
+<div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card border-secondary">
+                            <div class="card-header">
+                                <h3 class="mb-0 my-2">Login</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="form" role="form" autocomplete="off" method="post">
+                                    {% csrf_token %}
+                                    <div style="display: none" id="errors" class="alert alert-danger" role="alert">
+                                            <strong>Oh snap! </strong> <span id="errormessage"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Email</label>
+                                        <input type="text" class="form-control" id="email" placeholder="email@gmail.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="password" title="At least 6 characters with letters and numbers" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="go" class="btn btn-primary btn-lg float-right">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <a href="/members/signup/" ><p>No account? Signup here...</p></a>
+                    </div>
+                </div>
+                <!--/row-->
+    
+            </div>
+            <!--/col-->
+        </div>
+        <!--/row-->
+    </div>
+    <!--/container-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#go').click(function() {
+                $.post("/members/ajax-login",
+                    {
+                        email: $("#email").val(),
+                        password: $("#password").val()
+                    },
+                    function(data, status){
+                        console.log(data)
+                        if (JSON.parse(data).Status == 'Success') {
+                            window.location = '/';
+                        } else {
+                            
+                            $('#errormessage').html("<span>" + JSON.parse(data).Message + "</span>")
+                            $('#errors').css('display', 'block')
+                        }
+                    }
+                );
+                return false;
+            })
+        })
+    </script>
+{% endblock %}
