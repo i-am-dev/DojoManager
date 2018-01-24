@@ -1,0 +1,12 @@
+{% extends "layout/layout1.html" %}
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block content %}
+<form method="post" action=".">
+  {% csrf_token %}
+  {{ form|as_bootstrap }}
+
+  <input type="submit" value="{% trans 'Submit' %}" />
+</form>
+{% endblock %}
