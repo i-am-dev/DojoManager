@@ -6,5 +6,5 @@ If you have any thing you would like to add or fix then please take a look at th
 * [How to contribute](https://github.com/Buzzcube/DojoManager/blob/master/CONTRIBUTING.md)
 * [DojoManager mailing list](https://groups.google.com/forum/#!forum/dojomanager)
 * [ZenHub project board](https://github.com/Buzzcube/DojoManager#boards?repos=91454773)
-* [Code of Conduct](https://github.com/Buzzcube/DojoManager/blob/master/CODEOFCONDUCT.md)
+* [Code of Conduct](https://github.com/Buzzcube/DojoManager/blob/master/CODE_OF_CONDUCT.md)
 * [Code Review Process](https://github.com/Buzzcube/DojoManager/blob/master/CODEREVIEW.md)
