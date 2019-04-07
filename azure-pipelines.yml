@@ -29,8 +29,14 @@ jobs:
     displayName: 'Install dependencies'
 
   - script: |
+      $env:SECRET_KEY
+      $env:DATABASE_URL
       python manage.py test
     displayName: 'Testing'
+
+  env:
+    SECRET_KEY: $(SECRET_KEY)
+    DATABASE_URL: $(DATABASE_URL)
 
 #  - task: PublishTestResults@2
 #    inputs:
