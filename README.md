@@ -1,4 +1,6 @@
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/i-am-dev/DojoManager?branch=master)](https://bettercodehub.com/)
+
 ## Contributing
 We always welcome contributors to our little project here.
 
