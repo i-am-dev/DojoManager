@@ -9,6 +9,7 @@ class Auth:
         try:
             # fetch the user data
             user = User.query.filter_by(email=data.get('email')).first()
+
             if user and user.check_password(data.get('password')):
                 auth_token = User.encode_auth_token(user.id)
                 if auth_token:
@@ -41,6 +42,7 @@ class Auth:
             auth_token = ''
         if auth_token:
             resp = User.decode_auth_token(auth_token)
+            print(resp)
             if not isinstance(resp, str):
                 # mark the token as blacklisted
                 return save_token(token=auth_token)
@@ -71,7 +73,16 @@ class Auth:
                         'user_id': user.id,
                         'email': user.email,
                         'admin': user.admin,
-                        'registered_on': str(user.registered_on)
+                        'registered_on': str(user.registered_on),
+                        'first_name': user.first_name,
+                        'last_name': user.last_name,
+                        'permission_level': user.permission_level,
+                        'user_config': user.user_config,
+                        'address_line1': user.address_line1,
+                        'address_line2': user.address_line2,
+                        'address_city': user.address_city,
+                        'address_postal_code': user.address_postal_code,
+                        'address_country': user.address_country,
                     }
                 }
                 return response_object, 200
@@ -86,3 +97,4 @@ class Auth:
                 'message': 'Provide a valid auth token.'
             }
             return response_object, 401
+

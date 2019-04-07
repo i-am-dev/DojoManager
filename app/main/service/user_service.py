@@ -1,5 +1,6 @@
 import uuid
 import datetime
+import json
 
 from app.main import db
 from app.main.model.user import User
@@ -11,9 +12,17 @@ def save_new_user(data):
         new_user = User(
             public_id=str(uuid.uuid4()),
             email=data['email'],
-            username=data['username'],
             password=data['password'],
-            registered_on=datetime.datetime.utcnow()
+            registered_on=datetime.datetime.utcnow(),
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            permission_level=1, # 1 = standard user, 2 = admin, 3 = superuser
+            user_config=json.dumps({}),
+            address_line1=data['address_line1'],
+            address_line2=data['address_line2'],
+            address_city=data['address_city'],
+            address_postal_code=data['address_postal_code'],
+            address_country=data['address_country'],
         )
         save_changes(new_user)
         return generate_token(new_user)

@@ -13,7 +13,16 @@ class TestUserModel(BaseTestCase):
         user = User(
             email='test@test.com',
             password='test',
-            registered_on=datetime.datetime.utcnow()
+            registered_on=datetime.datetime.utcnow(),
+            first_name='Joe',
+            last_name='Anderson',
+            address_line1='12 Peanut Lane',
+            address_line2='',
+            address_city='Breakfast City',
+            address_postal_code='1234',
+            address_country='South Africa',
+            permission_level=1,
+            user_config='{}'
         )
         db.session.add(user)
         db.session.commit()
@@ -24,7 +33,16 @@ class TestUserModel(BaseTestCase):
         user = User(
             email='test@test.com',
             password='test',
-            registered_on=datetime.datetime.utcnow()
+            registered_on=datetime.datetime.utcnow(),
+            first_name='Joe',
+            last_name='Anderson',
+            address_line1='12 Peanut Lane',
+            address_line2='',
+            address_city='Breakfast City',
+            address_postal_code='1234',
+            address_country='South Africa',
+            permission_level=1,
+            user_config='{}'
         )
         db.session.add(user)
         db.session.commit()
