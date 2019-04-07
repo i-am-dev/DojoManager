@@ -1,6 +1,8 @@
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/i-am-dev/DojoManager?branch=master)](https://bettercodehub.com/)
 
+[![codecov](https://codecov.io/gh/i-am-dev/DojoManager/branch/master/graph/badge.svg)](https://codecov.io/gh/i-am-dev/DojoManager)
+
 ## Contributing
 We always welcome contributors to our little project here.
 
