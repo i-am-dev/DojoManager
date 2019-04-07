@@ -15,8 +15,16 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     public_id = db.Column(db.String(100), unique=True)
-    username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    permission_level = db.Column(db.Integer, nullable=False)
+    user_config = db.Column(db.Text, nullable=False)
+    address_line1 = db.Column(db.String(100), nullable=False)
+    address_line2 = db.Column(db.String(50), nullable=False)
+    address_city = db.Column(db.String(50), nullable=False)
+    address_postal_code = db.Column(db.String(10), nullable=False)
+    address_country = db.Column(db.String(50), nullable=False)
 
     @property
     def password(self):
@@ -69,4 +77,5 @@ class User(db.Model):
             return 'Invalid token. Please log in again.'
 
     def __repr__(self):
-        return "<User '{}'>".format(self.username)
+        return "<User: {} {} - {}>".format(self.first_name, self.last_name, self.email)
+        

@@ -71,7 +71,16 @@ class Auth:
                         'user_id': user.id,
                         'email': user.email,
                         'admin': user.admin,
-                        'registered_on': str(user.registered_on)
+                        'registered_on': str(user.registered_on),
+                        'first_name': user.first_name,
+                        'last_name': user.last_name,
+                        'permission_level': user.permission_level,
+                        'user_config': user.user_config,
+                        'address_line1': user.address_line1,
+                        'address_line2': user.address_line2,
+                        'address_city': user.address_city,
+                        'address_postal_code': user.address_postal_code,
+                        'address_country': user.address_country,
                     }
                 }
                 return response_object, 200
@@ -86,3 +95,4 @@ class Auth:
                 'message': 'Provide a valid auth token.'
             }
             return response_object, 401
+

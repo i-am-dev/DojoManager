@@ -12,7 +12,14 @@ def register_user(self):
         data=json.dumps(dict(
             email='joe@gmail.com',
             username='username',
-            password='123456'
+            password='123456',
+            first_name='Joe',
+            last_name='Anderson',
+            address_line1='12 Peanut Lane',
+            address_line2='',
+            address_city='Breakfast City',
+            address_postal_code='1234',
+            address_country='South Africa'
         )),
         content_type='application/json'
     )
@@ -162,3 +169,4 @@ class TestAuthBlueprint(BaseTestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
