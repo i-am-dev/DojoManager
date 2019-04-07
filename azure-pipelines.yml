@@ -30,6 +30,7 @@ jobs:
 
   - script: |
       $(SECRET_KEY)
+      $(DATABASE_URL)
       python manage.py test
     displayName: 'Testing'
 
