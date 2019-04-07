@@ -32,6 +32,7 @@ jobs:
       $(SECRET_KEY)
       $(DATABASE_URL)
       python manage.py cov
+      codecov --token=$(CODECOV_KEY)
     displayName: 'Testing'
 
 #  - task: PublishTestResults@2
