@@ -27,7 +27,7 @@ Having Your Code Reviewed
 * Keeping the previous point in mind: assume the best intention from the reviewer's comments.
 * Explain why the code exists. ("It's like that because of these reasons. Would it be more clear if I rename this class/file/method/variable?")
 * Extract some changes and refactorings into future tickets/stories.
-* Link to the code review from the ticket/story. ("Ready for review: https://github.com/organization/project/pull/1")
+* Link to the code review from the issue. ("Ready for review: https://github.com/organization/project/pull/1")
 * Push commits based on earlier rounds of feedback as isolated commits to the branch. Do not squash until the branch is ready to merge the develop branch. Reviewers should be able to read individual updates based on their earlier feedback.
 * Seek to understand the reviewer's perspective.
 * Try to respond to every comment.
@@ -63,4 +63,4 @@ An example response to style comments:
 
     Whoops. Good catch, thanks. Fixed in a4994ec.
 
-If you disagree with a guideline, open an issue on the guides repo rather than debating it within the code review. In the meantime, apply the guideline.
+If you disagree with a guideline, open an issue on the repo rather than debating it within the code review. In the meantime, apply the guideline.
