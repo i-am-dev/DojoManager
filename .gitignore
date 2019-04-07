@@ -102,4 +102,7 @@ ENV/
 # mypy
 .mypy_cache/
 /migrations
+/migrations.0
+/migrations.1
+/migrations.2
 env.sh
