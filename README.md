@@ -3,7 +3,7 @@
 
 [![codecov](https://codecov.io/gh/i-am-dev/DojoManager/branch/master/graph/badge.svg)](https://codecov.io/gh/i-am-dev/DojoManager)
 
-## Contributing
+## Contributing ##
 We always welcome contributors to our little project here.
 
 If you have any thing you would like to add or fix then please take a look at these resources:
@@ -12,3 +12,10 @@ If you have any thing you would like to add or fix then please take a look at th
 * [Code of Conduct](https://github.com/Buzzcube/DojoManager/blob/master/CODE_OF_CONDUCT.md)
 * [Code Review Process](https://github.com/Buzzcube/DojoManager/blob/master/CODEREVIEW.md)
 
+## Sponsors ##
+Some of the contributions to the project don't come in the for of code. There are many was to assist.
+Here are some of the project's main contributors and sponsors that we would like to shout out to.
+
+### Bugsnag ###
+[![Bugsnag](https://github.com/i-am-dev/DojoManager/master/bugsnag_logo_navy.svg)](https://bugsnag.com)
+Bugsnag monitors application stability, so you can make data-driven decisions on whether you should be building new features, or fixing bugs.
