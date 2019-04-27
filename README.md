@@ -17,5 +17,5 @@ Some of the contributions to the project don't come in the for of code. There ar
 Here are some of the project's main contributors and sponsors that we would like to shout out to.
 
 ### Bugsnag ###
-[![Bugsnag](https://github.com/i-am-dev/DojoManager/master/bugsnag_logo_navy.svg)](https://bugsnag.com)
+[![Bugsnag](https://raw.githubusercontent.com/i-am-dev/DojoManager/master/bugsnag_logo_navy.svg)](https://bugsnag.com)
 Bugsnag monitors application stability, so you can make data-driven decisions on whether you should be building new features, or fixing bugs.
